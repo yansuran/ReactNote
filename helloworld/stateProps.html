@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件状态和组件属性State and Props</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+
+<body>
+
+<div id="example_1"></div>
+<div id="example_2"></div>
+
+
+</body>
+
+<script type="text/jsx">
+    /**
+     *  组件状态 State
+     */
+    var CommonComponnet = React.createClass({
+        // 获取组件的初始状态，在组件加载的时候会被调用一次，返回值赋予 this.state 作为初始值
+        getInitialState:function(){
+            return {
+                open:false
+            }
+        },
+        render:function(){
+            console.log('render CommonComponnet Componnet!');
+            var open = this.state.open; // 通过 this.state 获取当前状态
+            return <label className="switch">
+                       <input type="checkbox" checked={open}/>
+                   </label>
+        },
+        toggleSwitch:function(){
+            var open = this.state.open;
+            this.setState({ // 通过 setState 修改组件状态, React 会调用 render 方法重渲染
+                open: !open
+            })
+        }
+    });
+
+    /**
+     * 组件属性 Props ,  this.props 组件可以传递属性给组件
+     * this.props: 获取属性值
+     * getDefaultProps: 获取默认属性对象，会被调用一次，当组件类创建的时候就会被调用，返回值会被缓存起来，当组件被实例化过后如果传入的属性没有值，会返回默认属性值
+     * this.props.children：子节点属性
+     * propTypes: 属性类型检查
+     **/
+    var TodoList = React.createClass({
+        render: function(){
+            var props =this.props ;
+            return <div className="todo-item">
+                       <span className="todo-item-name">{props.name}</span>
+                   </div>
+
+        }
+    });
+    ReactDOM.render(
+        <TodoList name="待办事项1"/>,
+        document.getElementById("example_1")
+    );
+
+    /**
+     * children  , 组件属性中会有一个特殊属性 children ，表示子组件
+     **/
+    var TodoLists = React.createClass({
+        render:function(){
+            var props = this.props;
+            return <div className="todo-list">
+                     <span className="todo-list-name">{props.children}</span>
+                   </div>
+        }
+    });
+    ReactDOM.render(
+        <TodoLists>待办事项2</TodoLists>, // 从子组件 中通过 props.children拿到 text值
+        document.getElementById("example_2")
+    );
+
+</script>
+</html>

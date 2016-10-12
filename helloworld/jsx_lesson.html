@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsx lesson</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="//cdn.bootcss.com/react/0.14.0-beta3/JSXTransformer.js"></script>
+</head>
+<body>
+
+<script type="text/jsx">
+     var rule = {
+         '嵌套规则': '标签可任意嵌套' ,
+         '标签闭合': '严格闭合,否则无法编译通过',
+         'Jsx组件': 'Html组件 , React组件'
+     }
+
+    /*
+    *  Html组件
+    * */
+    function render(){ // html 原生标签
+        return <ul>
+                <li>im list 1</li>
+                <li>im list 2</li>
+              </ul>
+    }
+
+    /*
+    *  React组件 -自定义组件
+    * */
+    var CustomComponnet = React.createClass({ //定义自定义组件
+        render : function(){
+            return <div> customComponnet </div>
+        }
+    });
+
+    function render(){ // 使用自定义组件
+        return <div><CustomComponnet/></div>
+    }
+
+
+</script>
+
+</body>
+</html>
